@@ -27,7 +27,7 @@ def delete_html_tags(html_file, result_file='cleaned.txt'):
             
     final_text = '\n'.join(non_empty_lines)
             
-    # Записуємо у файл вже фінальний, очищений текст!
+    
     with open(result_file, 'w', encoding='utf-8') as file:
         file.write(final_text)
 
