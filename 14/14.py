@@ -19,7 +19,8 @@ class Student(Human):
         return f"{self.first_name}, {self.last_name}, {self.gender}, {self.age}, {self.record_book}"
         
     
-
+class MyCastomError(Exception):
+    pass
 
 class Group:
 
@@ -28,8 +29,10 @@ class Group:
         self.group = set()
 
     def add_student(self, student):
-        self.group.add(student)
-
+        if len(self.group) >= 10:
+            raise MyCastomError("Group is full")
+        else:
+            self.group.add(student)
     def delete_student(self, last_name):
         student = self.find_student(last_name)
         if student is not None:
@@ -60,3 +63,16 @@ gr.delete_student('Taylor')
 print(gr)  # Only one student
 
 gr.delete_student('Taylor')  # No error!
+
+
+gr = Group('PD1')
+
+try:
+    for i in range(12):
+        st = Student('Male', 20 + i, f'Name{i}', f'LastName{i}', f'AN10{i}')
+        gr.add_student(st)
+        print(f"Успішно додано студента: {st.first_name}")
+except MyCastomError as e:
+    print(f"Зловлено виняток: {e}")
+
+print(f"Всього студентів у групі: {len(gr.group)}")
